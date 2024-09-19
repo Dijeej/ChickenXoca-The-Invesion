@@ -3,15 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - NPC-Alien
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - isPlayer
   - Water
   - UI
-  - 
+  - isGround
   - 
   - 
   - 
