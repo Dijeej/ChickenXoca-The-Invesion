@@ -88,6 +88,11 @@ public class AJController : MonoBehaviour
      
      private void OnCollisionEnter(Collision collision)
     {
+     
+        if (collision.gameObject.CompareTag("Bus"))
+        {
+            Debug.Log("Fase 1 Concluida");
+        }
         // Verifica se o objeto com o qual o personagem colidiu tem a tag "Dangerous"
         if (collision.gameObject.CompareTag("Dangerous"))
         {
