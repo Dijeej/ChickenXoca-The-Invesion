@@ -55,7 +55,7 @@ public class AJController : MonoBehaviour
     }
 
     private void playerMovements(){
-// Entrada do jogador
+        // Entrada do jogador
         bool forwardPress = Input.GetKey("w");
         bool backPress = Input.GetKey("s");
         bool leftPress = Input.GetKey("a");
@@ -99,6 +99,11 @@ public class AJController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement);
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            Debug.Log("PipeAttack");
+            animator.SetTrigger("atack");
+        }
     }
      
     private void OnCollisionEnter(Collision collision)
