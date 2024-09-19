@@ -43,17 +43,45 @@ public class Alien : MonoBehaviour
             if (playerInSightRange && !playerInAttackRange) Chase();
             if (playerInSightRange && playerInAttackRange) Attack();
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.Space))  // Se o jogador apertar 'Espaço', o alien toma hit
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Colidiu com: " + collision.gameObject.name);
+
+        if (collision.gameObject.CompareTag("Gun"))
         {
+            Debug.Log("Atingido pela arma!");
+            TakesDamage(1);
+        }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Atingido pelo jogador!");
             TakesDamage(1);
         }
     }
 
+    private void OnTriggerEnter(Collider objeto)
+    {
+        if (objeto.gameObject.CompareTag("Gun"))
+        {
+            TakesDamage(1);
+        }
+
+        if (objeto.gameObject.CompareTag("Player"))
+        {
+            TakesDamage(1);
+        }
+    }
     private void Patrol() {
-        if (!walkPointSet) SearchWalkPoint();
+        if (!walkPointSet) {
+            SearchWalkPoint();
+            }
 
         if (walkPointSet && alien.enabled) {
+            animator.SetBool("isWalking", true);
+            animator.SetBool("isRunning", false);
             alien.SetDestination(walkPoint);
         }
 
@@ -66,6 +94,8 @@ public class Alien : MonoBehaviour
     private void Chase() {
         if (alien.enabled) {
             alien.SetDestination(player.position);
+            animator.SetBool("isRunning", true);
+            animator.SetBool("isWalking", false);
         }
     }
 
