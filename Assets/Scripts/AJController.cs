@@ -5,14 +5,15 @@ using UnityEngine;
 public class AJController : MonoBehaviour
 {
     Animator animator;
+    Rigidbody rb;
     int isWalkingHash;
     int isRunningHash;
     int isRetreatingHash;
     int isRunningBackHash;
 
     public float turnSpeed = 200f; // Velocidade de rotação
-    public float moveSpeed = 2f;   // Velocidade de movimento
-    public float runSpeed = 4f;    // Velocidade de corrida
+    public float moveSpeed = 5f;   // Velocidade de movimento
+    public float runSpeed = 100f;    // Velocidade de corrida
 
     public int maxHealth = 100;    // Vida máxima do personagem
     public int currentHealth;      // Vida atual do personagem
@@ -20,6 +21,7 @@ public class AJController : MonoBehaviour
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         movesAnimatiorStates();
         currentHealth = maxHealth;
     }
@@ -57,6 +59,8 @@ public class AJController : MonoBehaviour
 
         animator.SetBool(isRunningBackHash, backPress && runPress);
 
+         Vector3 movement = Vector3.zero;
+
         if (leftPress)
         {
             transform.Rotate(Vector3.up, -turnSpeed * Time.deltaTime);
@@ -70,14 +74,16 @@ public class AJController : MonoBehaviour
         if (forwardPress)
         {
             float speed = runPress ? runSpeed : moveSpeed; // Corre se estiver pressionando o shift
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            movement = transform.forward * speed * Time.deltaTime;
         }
         // Movimento para trás
         else if (backPress)
         {
             float speed = runPress ? runSpeed : moveSpeed; // Corre para trás se estiver pressionando o shift
-            transform.Translate(Vector3.back * speed * Time.deltaTime);
+            movement = -transform.forward * speed * Time.deltaTime;
         }
+
+        rb.MovePosition(rb.position + movement);
     }
      
      private void OnCollisionEnter(Collision collision)
