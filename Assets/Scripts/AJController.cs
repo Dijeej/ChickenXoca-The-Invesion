@@ -19,11 +19,14 @@ public class AJController : MonoBehaviour
     public int currentHealth;      // Vida atual do personagem
     public int damageAmount = 10;  // Dano causado ao colidir com o objeto
 
+    public HealthBarScript healthBar;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         movesAnimatiorStates();
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
@@ -84,6 +87,7 @@ public class AJController : MonoBehaviour
         }
 
         rb.MovePosition(rb.position + movement);
+
     }
      
      private void OnCollisionEnter(Collision collision)
@@ -102,6 +106,7 @@ public class AJController : MonoBehaviour
         private void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
         Debug.Log("Personagem tomou dano! Vida restante: " + currentHealth);
 
         if (currentHealth <= 0)

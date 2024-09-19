@@ -8,6 +8,7 @@ TagManager:
   - Porta
   - LightMark
   - Bus
+  - MainInventory
   layers:
   - Default
   - TransparentFX
