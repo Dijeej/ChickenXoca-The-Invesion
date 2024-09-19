@@ -13,7 +13,7 @@ public class AJController : MonoBehaviour
 
     public float turnSpeed = 200f; // Velocidade de rotação
     public float moveSpeed = 5f;   // Velocidade de movimento
-    public float runSpeed = 100f;    // Velocidade de corrida
+    public float runSpeed = 10f;    // Velocidade de corrida
 
     public int maxHealth = 100;    // Vida máxima do personagem
     public int currentHealth;      // Vida atual do personagem
