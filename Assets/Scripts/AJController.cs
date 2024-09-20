@@ -127,15 +127,13 @@ public class AJController : MonoBehaviour
         }
     }
 
-    private void TakeDamage(int damage)
-    {
+   public void TakeDamage(int damage) {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
-        Debug.Log("Personagem tomou dano! Vida restante: " + currentHealth);
+        Debug.Log("Player tomou " + damage + " de dano. Vida restante: " + currentHealth);
 
-        if (currentHealth <= 0)
-        {
-            Die(); // Chama a função de morte se a vida chegar a 0
+        if (currentHealth <= 0) {
+            Die();
         }
     }
 

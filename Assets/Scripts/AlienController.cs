@@ -9,9 +9,10 @@ public class Alien : MonoBehaviour
     
     private Animator animator;
     private int health;
-    //private int maxHealth = 3;
     private float delayDestroy = 30f;
     private bool isDead = false;
+    private bool isAttacking = false; // Indica se o alien está atacando
+    private bool canDamagePlayer = true ;
 
     // Patrulha
     public Vector3 walkPoint;
@@ -38,41 +39,64 @@ public class Alien : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-        if(!isDead) {
+        if (!isDead) {
             if (!playerInSightRange && !playerInAttackRange) Patrol();
             if (playerInSightRange && !playerInAttackRange) Chase();
             if (playerInSightRange && playerInAttackRange) Attack();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("Colidiu com: " + collision.gameObject.name);
-
-        if (collision.gameObject.CompareTag("Gun"))
-        {
-            Debug.Log("Atingido pela arma!");
-            TakesDamage(1);
+    private void Attack() {
+        if (alien.enabled) {
+            alien.SetDestination(transform.position);  // Faz ele parar exatamente onde está
         }
-        Debug.Log("Colidiu com: " + collision.gameObject.name);
+    
+        transform.LookAt(player);
+
+        if (!hasAttacked) {
+            // Código do Ataque
+            animator.SetTrigger("Attack");
+            Debug.Log("Bateu");
+
+            // Se puder causar dano, faz isso e inicia o cooldown
+            if (canDamagePlayer)
+            {
+                // Supondo que o player tenha um método TakeDamage
+                AJController playerController = player.GetComponent<AJController>();
+                if (playerController != null)
+                {
+                    playerController.TakeDamage(20); // Aplica o dano de 20 ao player
+                    canDamagePlayer = false; // Impede de causar dano repetido imediatamente
+                    Invoke(nameof(ResetAttack), timeBetweenAttacks); // Aguarda o cooldown
+                }
+            }
+
+            hasAttacked = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttacks);
+        }
     }
 
-    private void OnTriggerEnter(Collider objeto)
-    {
-        if (objeto.gameObject.CompareTag("Gun"))
-        {
-            TakesDamage(1);
-        }
+    private void ResetAttack() {
+        isAttacking = false; // Desativa o estado de ataque após o ataque ser concluído
+        hasAttacked = false;
+        canDamagePlayer = true;
+        Debug.Log("Alien terminou de atacar.");
+    }
 
-        if (objeto.gameObject.CompareTag("Player"))
-        {
-            TakesDamage(1);
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Player") && isAttacking) {
+            AJController playerController = other.GetComponent<AJController>();
+            if (playerController != null) {
+                playerController.TakeDamage(20); // Aplica 20 de dano ao player
+                Debug.Log("Alien causou dano ao player.");
+            }
         }
     }
+
     private void Patrol() {
         if (!walkPointSet) {
             SearchWalkPoint();
-            }
+        }
 
         if (walkPointSet && alien.enabled) {
             animator.SetBool("isWalking", true);
@@ -94,23 +118,6 @@ public class Alien : MonoBehaviour
         }
     }
 
-    private void Attack() {
-        if (alien.enabled) {
-            alien.SetDestination(transform.position);  // Faz ele parar exatamente onde está
-        }
-        
-        transform.LookAt(player);
-
-        if (!hasAttacked) {
-            // Código do Ataque
-            animator.SetTrigger("Attack");
-            Debug.Log("Bateu");
-
-            hasAttacked = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttacks);
-        }
-    }
-
     private void SearchWalkPoint() {
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -121,45 +128,20 @@ public class Alien : MonoBehaviour
         }
     }
 
-    private void ResetAttack() {
-        Debug.Log("Resetou");
-        hasAttacked = false;
-    }
-
-    private void OnDrawGizmosSelected() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, walkPointRange);
-    }
-
-    public void TakesDamage(int damage) {
-        animator.SetTrigger("Hitted");
-        Debug.Log("Tomou dano");
-        health -= damage;
-        if (health <= 0) {
-            Die();
-        }
-    }
-
     private void Die() {
         Debug.Log("O alien morreu");
         animator.SetTrigger("Died");
 
-        isDead = true; 
-        // Parar o NavMeshAgent
-        if (alien.enabled) { 
-            // alien.isStopped = true;  
+        isDead = true;
+        if (alien.enabled) {
             alien.enabled = false;
         }
 
-        // Destrói o alien após o atraso
         Invoke(nameof(DestroyAlien), delayDestroy);
     }
 
     private void DestroyAlien() {
-        Destroy(alien.gameObject);  // Destrói o objeto alien inteiro
+        Destroy(alien.gameObject);
     }
 }
+
