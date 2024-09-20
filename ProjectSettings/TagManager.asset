@@ -4,19 +4,22 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - NPC-Alien
   - Dangerous
   - Porta
   - LightMark
   - Bus
+  - Item
+  - Gun
   - MainInventory
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - isPlayer
   - Water
   - UI
-  - 
+  - isGround
   - 
   - 
   - 

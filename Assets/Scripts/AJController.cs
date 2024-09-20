@@ -19,6 +19,10 @@ public class AJController : MonoBehaviour
     public int currentHealth;      // Vida atual do personagem
     public int damageAmount = 10;  // Dano causado ao colidir com o objeto
 
+    public int itemCount = 0;      // Contador de itens coletados
+
+    private GameObject nearbyObject;
+    
     public HealthBarScript healthBar;
 
     void Start()
@@ -32,6 +36,17 @@ public class AJController : MonoBehaviour
     void Update()
     {
         playerMovements();
+        if (Input.GetKeyDown(KeyCode.Q) && nearbyObject != null)
+        {
+            if(nearbyObject.CompareTag("Item")){
+                CollectItem(nearbyObject); 
+            }
+            
+            if(nearbyObject.CompareTag("Porta")){
+                UseDoor(nearbyObject); // Abre a porta quando o jogador pressiona Q
+            }
+        }
+
     }
 
     private void movesAnimatiorStates(){
@@ -43,7 +58,7 @@ public class AJController : MonoBehaviour
     }
 
     private void playerMovements(){
-// Entrada do jogador
+        // Entrada do jogador
         bool forwardPress = Input.GetKey("w");
         bool backPress = Input.GetKey("s");
         bool leftPress = Input.GetKey("a");
@@ -88,9 +103,13 @@ public class AJController : MonoBehaviour
 
         rb.MovePosition(rb.position + movement);
 
+        if(Input.GetKeyDown(KeyCode.Space)){
+            Debug.Log("PipeAttack");
+            animator.SetTrigger("atack");
+        }
     }
      
-     private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
      
         if (collision.gameObject.CompareTag("Bus"))
@@ -103,7 +122,10 @@ public class AJController : MonoBehaviour
             TakeDamage(damageAmount); // Aplica o dano
         }
     }
-        private void TakeDamage(int damage)
+    private void DealDamage(int damage) {
+
+    }
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
@@ -113,6 +135,44 @@ public class AJController : MonoBehaviour
         {
             Die(); // Chama a função de morte se a vida chegar a 0
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Item"))
+        {
+            nearbyObject = other.gameObject; // Armazena o item próximo
+            Debug.Log("Pressione 'Q' para coletar o item.");
+        }
+
+        if (other.gameObject.CompareTag("Porta"))
+        {
+            nearbyObject = other.gameObject; // Armazena o item próximo
+            Debug.Log("Pressione 'Q' para mover a porta.");
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Item") || other.gameObject.CompareTag("Porta"))
+        {
+            nearbyObject = null; // Remove a referência ao objeto ao sair do trigger
+            Debug.Log("Objeto fora de alcance.");
+        }
+    }   
+
+    private void UseDoor(GameObject door)
+    {
+        DoorController doorController = door.GetComponent<DoorController>();
+        doorController.useDoor();
+        Destroy(door);
+    }
+    private void CollectItem(GameObject item)
+    {
+        itemCount++; // Incrementa o contador de itens coletados
+        Debug.Log("Item coletado! Total de itens: " + itemCount);
+
+        Destroy(item); // Remove o item do jogo
     }
 
     // Função de morte do personagem
