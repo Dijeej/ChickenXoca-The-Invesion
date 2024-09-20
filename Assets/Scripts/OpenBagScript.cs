@@ -11,7 +11,6 @@ public class OpenBagScript : MonoBehaviour
     void Start()
     {
         openBagSwitch = false;
-
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }

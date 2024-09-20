@@ -13,7 +13,7 @@ public class AJController : MonoBehaviour
 
     public float turnSpeed = 200f; // Velocidade de rotação
     public float moveSpeed = 5f;   // Velocidade de movimento
-    public float runSpeed = 10f;    // Velocidade de corrida
+    public float runSpeed = 10f;   // Velocidade de corrida
 
     public int maxHealth = 100;    // Vida máxima do personagem
     public int currentHealth;      // Vida atual do personagem
@@ -21,9 +21,10 @@ public class AJController : MonoBehaviour
 
     public int itemCount = 0;      // Contador de itens coletados
 
-    private GameObject nearbyObject;
-    
+    private List<GameObject> nearbyObjects = new List<GameObject>(); // Lista de objetos próximos
+
     public HealthBarScript healthBar;
+    public InventoryManagerScript inventoryManager;
 
     void Start()
     {
@@ -36,20 +37,24 @@ public class AJController : MonoBehaviour
     void Update()
     {
         playerMovements();
-        if (Input.GetKeyDown(KeyCode.Q) && nearbyObject != null)
+
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(nearbyObject.CompareTag("Item")){
-                CollectItem(nearbyObject); 
-            }
-            
-            if(nearbyObject.CompareTag("Porta")){
-                UseDoor(nearbyObject); // Abre a porta quando o jogador pressiona Q
+            // Interagir com o primeiro item na lista de objetos próximos
+            if (nearbyObjects.Count > 0)
+            {
+                GameObject itemToInteract = nearbyObjects[0];
+                
+                if (itemToInteract.CompareTag("Item"))
+                {
+                    CollectItem(itemToInteract);
+                }
             }
         }
-
     }
 
-    private void movesAnimatiorStates(){
+    private void movesAnimatiorStates()
+    {
         animator = GetComponent<Animator>();
         isWalkingHash = Animator.StringToHash("isWalking");
         isRunningHash = Animator.StringToHash("isRunning");
@@ -57,7 +62,8 @@ public class AJController : MonoBehaviour
         isRunningBackHash = Animator.StringToHash("isRunningBack");
     }
 
-    private void playerMovements(){
+    private void playerMovements()
+    {
         // Entrada do jogador
         bool forwardPress = Input.GetKey("w");
         bool backPress = Input.GetKey("s");
@@ -70,14 +76,11 @@ public class AJController : MonoBehaviour
         bool isWalkingBack = backPress;
 
         animator.SetBool(isWalkingHash, isWalking);
-
         animator.SetBool(isRunningHash, forwardPress && runPress);
-
         animator.SetBool(isRetreatingHash, isWalkingBack);
-
         animator.SetBool(isRunningBackHash, backPress && runPress);
 
-         Vector3 movement = Vector3.zero;
+        Vector3 movement = Vector3.zero;
 
         if (leftPress)
         {
@@ -103,15 +106,15 @@ public class AJController : MonoBehaviour
 
         rb.MovePosition(rb.position + movement);
 
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
             Debug.Log("PipeAttack");
             animator.SetTrigger("atack");
         }
     }
-     
+
     private void OnCollisionEnter(Collision collision)
     {
-     
         if (collision.gameObject.CompareTag("Bus"))
         {
             Debug.Log("Fase 1 Concluida");
@@ -122,9 +125,7 @@ public class AJController : MonoBehaviour
             TakeDamage(damageAmount); // Aplica o dano
         }
     }
-    private void DealDamage(int damage) {
 
-    }
     private void TakeDamage(int damage)
     {
         currentHealth -= damage;
@@ -141,38 +142,40 @@ public class AJController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Item"))
         {
-            nearbyObject = other.gameObject; // Armazena o item próximo
-            Debug.Log("Pressione 'Q' para coletar o item.");
-        }
-
-        if (other.gameObject.CompareTag("Porta"))
-        {
-            nearbyObject = other.gameObject; // Armazena o item próximo
-            Debug.Log("Pressione 'Q' para mover a porta.");
+            if (!nearbyObjects.Contains(other.gameObject))
+            {
+                nearbyObjects.Add(other.gameObject); // Adiciona o item próximo à lista
+                Debug.Log("Pressione 'Q' para coletar o item.");
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Item") || other.gameObject.CompareTag("Porta"))
+        if (other.gameObject.CompareTag("Item"))
         {
-            nearbyObject = null; // Remove a referência ao objeto ao sair do trigger
-            Debug.Log("Objeto fora de alcance.");
+            nearbyObjects.Remove(other.gameObject); // Remove o item da lista ao sair do trigger
+            Debug.Log("Item fora de alcance.");
         }
-    }   
-
-    private void UseDoor(GameObject door)
-    {
-        DoorController doorController = door.GetComponent<DoorController>();
-        doorController.useDoor();
-        Destroy(door);
     }
-    private void CollectItem(GameObject item)
-    {
-        itemCount++; // Incrementa o contador de itens coletados
-        Debug.Log("Item coletado! Total de itens: " + itemCount);
 
-        Destroy(item); // Remove o item do jogo
+    private void CollectItem(GameObject itemObject)
+    {
+        FloatingItem floatingItem = itemObject.GetComponent<FloatingItem>();
+        if (floatingItem != null)
+        {
+            bool addedToInventory = inventoryManager.AddNewItem(floatingItem.item); // Adiciona o item ao inventário
+            if (addedToInventory)
+            {
+                Debug.Log("Item coletado e adicionado ao inventário!");
+                nearbyObjects.Remove(itemObject); // Remove o item da lista de objetos próximos
+                Destroy(itemObject); // Remove o item do mapa após coletado
+            }
+            else
+            {
+                Debug.Log("Inventário cheio. Não foi possível coletar o item.");
+            }
+        }
     }
 
     // Função de morte do personagem
@@ -181,5 +184,4 @@ public class AJController : MonoBehaviour
         Debug.Log("Personagem morreu!");
         // Aqui você pode implementar lógica para reiniciar o jogo, exibir uma animação de morte, etc.
     }
-    
 }
