@@ -22,7 +22,7 @@ public class AJController : MonoBehaviour
     public int itemCount = 0;      // Contador de itens coletados
 
     private GameObject nearbyObject;
-    
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
