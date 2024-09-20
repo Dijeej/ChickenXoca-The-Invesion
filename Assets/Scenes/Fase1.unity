@@ -36846,7 +36846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutsceneImage: {fileID: 1992319779}
-  nextSceneName: Fase2
+  nextSceneName: Fase2 - cutscene
   displayDuration: 10
 --- !u!1 &1662429378 stripped
 GameObject:
