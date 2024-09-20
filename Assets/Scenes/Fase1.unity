@@ -20266,6 +20266,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   damageAmount: 10
+  itemCount: 0
   healthBar: {fileID: 1540215320}
 --- !u!54 &880638568
 Rigidbody:
@@ -32124,7 +32125,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -32132,15 +32133,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -32172,11 +32173,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 12.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -12.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 192640382379410933, guid: bcd126319a6356e4d834cd6ebd7c65b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -33431,7 +33432,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540215317}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -33441,7 +33442,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -291, y: 122}
+  m_AnchoredPosition: {x: -223, y: 122}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540215319
@@ -46961,3 +46962,5 @@ SceneRoots:
   - {fileID: 1119660898}
   - {fileID: 1050109101}
   - {fileID: 1498846047}
+  - {fileID: 262975992}
+  - {fileID: 622273347}
