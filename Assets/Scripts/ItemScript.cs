@@ -21,10 +21,12 @@ public class ItemScript : ScriptableObject
 public enum ItemType {
     MeeleWeapon,
     RangedWeapon,
-    Tool
+    Tool,
+    Component
 }
 
 public enum ActionType {
     fight,
-    blind
+    blind,
+    build
 }
