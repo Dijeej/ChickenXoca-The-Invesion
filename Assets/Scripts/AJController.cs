@@ -23,11 +23,14 @@ public class AJController : MonoBehaviour
 
     private GameObject nearbyObject;
     
+    public HealthBarScript healthBar;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         movesAnimatiorStates();
         currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     void Update()
@@ -125,6 +128,7 @@ public class AJController : MonoBehaviour
     private void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
         Debug.Log("Personagem tomou dano! Vida restante: " + currentHealth);
 
         if (currentHealth <= 0)

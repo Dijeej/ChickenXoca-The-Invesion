@@ -11,6 +11,7 @@ TagManager:
   - Bus
   - Item
   - Gun
+  - MainInventory
   layers:
   - Default
   - TransparentFX
