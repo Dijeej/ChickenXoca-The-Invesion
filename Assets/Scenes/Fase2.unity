@@ -4357,6 +4357,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1600247537527589250, guid: d1d67c0b0ddec4dc4800061be6a9e0a0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d1d67c0b0ddec4dc4800061be6a9e0a0, type: 3}
       propertyPath: m_Controller
       value: 
@@ -5906,6 +5910,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1457838970446620, guid: 54fc4a62ccb7e304f910c5444e778f6b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1351892152}
+    - targetCorrespondingSourceObject: {fileID: 1457838970446620, guid: 54fc4a62ccb7e304f910c5444e778f6b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1351892155}
     - targetCorrespondingSourceObject: {fileID: 3575895962340015728, guid: 54fc4a62ccb7e304f910c5444e778f6b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 592846698}
@@ -9240,6 +9247,7 @@ MonoBehaviour:
   currentHealth: 0
   damageAmount: 10
   itemCount: 0
+  healthBar: {fileID: 0}
 --- !u!54 &880638568
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11709,7 +11717,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
@@ -11728,7 +11736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneImage: {fileID: 337417745}
   nextSceneName: Fase3 - cutscene
-  displayDuration: 0
+  displayDuration: 15
 --- !u!1001 &1173056332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13926,7 +13934,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2.5658102, y: 2.3925147, z: 0.13787086}
@@ -13946,6 +13954,21 @@ MonoBehaviour:
   rotationSpeed: 2
   openAngle: 90
   doorCollider: {fileID: 0}
+--- !u!114 &1351892155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1351892148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2da80a2876e49c39742d53b1c1fadf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneImage: {fileID: 337417745}
+  nextSceneName: Fase3 - cutscene
+  displayDuration: 15
 --- !u!1 &1355472608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: cc3095fd348d76b4f9cdcaabdaacdf6d, type: 3}
