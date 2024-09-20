@@ -25,6 +25,7 @@ public class AJController : MonoBehaviour
     
     public HealthBarScript healthBar;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
