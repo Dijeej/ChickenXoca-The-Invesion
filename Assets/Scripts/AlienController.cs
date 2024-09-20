@@ -54,12 +54,7 @@ public class Alien : MonoBehaviour
             Debug.Log("Atingido pela arma!");
             TakesDamage(1);
         }
-
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Atingido pelo jogador!");
-            TakesDamage(1);
-        }
+        Debug.Log("Colidiu com: " + collision.gameObject.name);
     }
 
     private void OnTriggerEnter(Collider objeto)

@@ -119,6 +119,9 @@ public class AJController : MonoBehaviour
             TakeDamage(damageAmount); // Aplica o dano
         }
     }
+    private void DealDamage(int damage) {
+
+    }
     private void TakeDamage(int damage)
     {
         currentHealth -= damage;
