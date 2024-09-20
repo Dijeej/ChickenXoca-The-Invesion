@@ -26,6 +26,7 @@ public class AJController : MonoBehaviour
     public HealthBarScript healthBar;
     public InventoryManagerScript inventoryManager;
 
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
