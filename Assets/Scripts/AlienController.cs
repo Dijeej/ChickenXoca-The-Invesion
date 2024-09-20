@@ -91,6 +91,15 @@ public class Alien : MonoBehaviour
                 Debug.Log("Alien causou dano ao player.");
             }
         }
+
+        if (other.gameObject.CompareTag("Player") && !isAttacking) {
+            if (health > 0 ) {
+                health -= 1;
+                Debug.Log("Alien causou dano ao player.");
+            } else{
+                Die();
+            }
+        }
     }
 
     private void Patrol() {

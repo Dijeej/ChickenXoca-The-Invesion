@@ -23,9 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Fase3 - cutscene.unity
     guid: f408b1be1ae494c6da93bf3d8e3e6520
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Fase3.unity
     guid: fc31d7c74b7714950955d7f328d1f5c8
+  - enabled: 1
+    path: Assets/Scenes/AlienPatrolScene.unity
+    guid: 087157e7bf7abbb4bb169e9fefe8f06a
   - enabled: 1
     path: Assets/Scenes/Fase4 - cutscene.unity
     guid: b8aa9d746a6464b4c8f3cee0876add29

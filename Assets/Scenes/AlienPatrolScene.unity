@@ -9143,6 +9143,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 65c4b63d3ab1edc4c98cc4216586cccf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 822237888}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 65c4b63d3ab1edc4c98cc4216586cccf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 822237889}
   m_SourcePrefab: {fileID: 100100000, guid: 65c4b63d3ab1edc4c98cc4216586cccf, type: 3}
 --- !u!4 &822237885 stripped
 Transform:
@@ -9170,7 +9173,7 @@ BoxCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.1187994, y: 4.4218807, z: 5.335838}
@@ -9194,6 +9197,21 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &822237889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822237886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f2da80a2876e49c39742d53b1c1fadf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cutsceneImage: {fileID: 0}
+  nextSceneName: Fase4 - cutscene
+  displayDuration: 0
 --- !u!1001 &824545498
 PrefabInstance:
   m_ObjectHideFlags: 0

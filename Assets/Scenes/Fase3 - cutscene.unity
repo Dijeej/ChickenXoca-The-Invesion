@@ -398,7 +398,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutsceneImage: {fileID: 1377702260}
-  nextSceneName: Fase3
+  nextSceneName: AlienPatrolScene
   displayDuration: 20
 --- !u!1 &1377702259
 GameObject:
